@@ -1,34 +1,50 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Github\\TravelTourCrawler\\",
+  "WorkspaceRootPath": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\traveltourcrawler\\controllers\\tourscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Migrations\\20250723071357_initdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250723071357_initdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\controllers\\tourscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:controllers\\tourscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\traveltourcrawler\\services\\itourcrawler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:services\\itourcrawler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\traveltourcrawler\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\traveltourcrawler\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\traveltourcrawler\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\traveltourcrawler\\services\\otripcrawler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\services\\otripcrawler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:services\\otripcrawler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\traveltourcrawler\\models\\tour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\services\\itourcrawler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:services\\itourcrawler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\models\\tour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:models\\tour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|d:\\github\\acc_nhom3\\traveltourcrawler\\traveltourcrawler.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{FB36E459-C16D-4125-938D-DB39B85F1BDD}|TravelTourCrawler.csproj|solutionrelative:traveltourcrawler.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,15 +54,67 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "20250723071357_initdb.cs",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Migrations\\20250723071357_initdb.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250723071357_initdb.cs",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Migrations\\20250723071357_initdb.cs",
+              "RelativeToolTip": "Migrations\\20250723071357_initdb.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T07:13:58.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "WeatherForecast.cs",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\WeatherForecast.cs",
+              "RelativeToolTip": "WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T06:58:00.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TravelTourCrawler.http",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\TravelTourCrawler.http",
+              "RelativeDocumentMoniker": "TravelTourCrawler.http",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\TravelTourCrawler.http",
+              "RelativeToolTip": "TravelTourCrawler.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-07-23T06:57:48.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T06:56:57.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "ITourCrawler.cs",
-              "DocumentMoniker": "D:\\Github\\TravelTourCrawler\\Services\\ITourCrawler.cs",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Services\\ITourCrawler.cs",
               "RelativeDocumentMoniker": "Services\\ITourCrawler.cs",
-              "ToolTip": "D:\\Github\\TravelTourCrawler\\Services\\ITourCrawler.cs",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Services\\ITourCrawler.cs",
               "RelativeToolTip": "Services\\ITourCrawler.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -55,78 +123,78 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "OTripCrawler.cs",
-              "DocumentMoniker": "D:\\Github\\TravelTourCrawler\\Services\\OTripCrawler.cs",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Services\\OTripCrawler.cs",
               "RelativeDocumentMoniker": "Services\\OTripCrawler.cs",
-              "ToolTip": "D:\\Github\\TravelTourCrawler\\Services\\OTripCrawler.cs",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Services\\OTripCrawler.cs",
               "RelativeToolTip": "Services\\OTripCrawler.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-23T04:44:52.861Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Tour.cs",
-              "DocumentMoniker": "D:\\Github\\TravelTourCrawler\\Models\\Tour.cs",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Models\\Tour.cs",
               "RelativeDocumentMoniker": "Models\\Tour.cs",
-              "ToolTip": "D:\\Github\\TravelTourCrawler\\Models\\Tour.cs",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Models\\Tour.cs",
               "RelativeToolTip": "Models\\Tour.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAwAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-23T04:41:48.677Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Github\\TravelTourCrawler\\Program.cs",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\Github\\TravelTourCrawler\\Program.cs",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAlwBsAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-23T04:02:15.488Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Github\\TravelTourCrawler\\appsettings.json",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\Github\\TravelTourCrawler\\appsettings.json",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-07-23T04:01:36.153Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ToursController.cs",
-              "DocumentMoniker": "D:\\Github\\TravelTourCrawler\\Controllers\\ToursController.cs",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Controllers\\ToursController.cs",
               "RelativeDocumentMoniker": "Controllers\\ToursController.cs",
-              "ToolTip": "D:\\Github\\TravelTourCrawler\\Controllers\\ToursController.cs",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Controllers\\ToursController.cs",
               "RelativeToolTip": "Controllers\\ToursController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAhwB8AAABBAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAmwDAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-23T04:00:49.284Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "D:\\Github\\TravelTourCrawler\\Data\\ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
-              "ToolTip": "D:\\Github\\TravelTourCrawler\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\Data\\ApplicationDbContext.cs",
               "RelativeToolTip": "Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-23T03:59:35.714Z",
               "EditorCaption": ""

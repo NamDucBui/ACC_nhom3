@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Github\\TravelTourCrawler\\TravelTourCrawler.csproj": {}
+    "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\TravelTourCrawler.csproj": {}
   },
   "projects": {
-    "D:\\Github\\TravelTourCrawler\\TravelTourCrawler.csproj": {
+    "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\TravelTourCrawler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Github\\TravelTourCrawler\\TravelTourCrawler.csproj",
+        "projectUniqueName": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\TravelTourCrawler.csproj",
         "projectName": "TravelTourCrawler",
-        "projectPath": "D:\\Github\\TravelTourCrawler\\TravelTourCrawler.csproj",
+        "projectPath": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\TravelTourCrawler.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Github\\TravelTourCrawler\\obj\\",
+        "outputPath": "D:\\Github\\ACC_nhom3\\TravelTourCrawler\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
