@@ -1,4 +1,6 @@
 ﻿using HtmlAgilityPack;
+using Microsoft.EntityFrameworkCore;
+using TravelTourCrawler.Data;
 using TravelTourCrawler.Models;
 
 namespace TravelTourCrawler.Services
@@ -7,11 +9,13 @@ namespace TravelTourCrawler.Services
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger<OTripCrawler> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public OTripCrawler(HttpClient httpClient, ILogger<OTripCrawler> logger)
+        public OTripCrawler(HttpClient httpClient, ILogger<OTripCrawler> logger, ApplicationDbContext applicationDbContext)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _context = applicationDbContext;
 
             // Cấu hình HttpClient
             _httpClient.BaseAddress = new Uri("https://otrip.vn/");
@@ -26,7 +30,6 @@ namespace TravelTourCrawler.Services
                 _logger.LogInformation("Starting to crawl tours from OTrip");
                 var tours = new List<Tour>();
 
-                // Crawl 2 trang đầu tiên
                 for (int page = 1; page <= 2; page++)
                 {
                     var response = await _httpClient.GetAsync($"/tours/tour-noi-dia?page={page}");
@@ -44,23 +47,19 @@ namespace TravelTourCrawler.Services
                         {
                             var tour = new Tour { Source = "OTrip" };
 
-                            // Title và URL
-                            var titleNode = tourNode.SelectSingleNode(".//h2/a");
+                            var titleNode = tourNode.SelectSingleNode(".//div/a");
                             if (titleNode != null)
                             {
                                 tour.Title = titleNode.InnerText.Trim();
                                 tour.Url = titleNode.GetAttributeValue("href", "");
-                                tour.Id = $"otrip-{tour.Url?.GetHashCode()}";
                             }
 
-                            // Image
                             var imageNode = tourNode.SelectSingleNode(".//img");
                             if (imageNode != null)
                             {
                                 tour.ImageUrl = imageNode.GetAttributeValue("src", "");
                             }
 
-                            // Details
                             var detailNodes = tourNode.SelectNodes(".//div[contains(@class, 'item-content-detail')]");
                             if (detailNodes != null)
                             {
@@ -85,22 +84,52 @@ namespace TravelTourCrawler.Services
                                 }
                             }
 
-                            // Price
                             var priceNode = tourNode.SelectSingleNode(".//p[contains(@class, 'price-new')]");
                             if (priceNode != null)
                             {
                                 tour.Price = priceNode.InnerText.Trim();
                             }
 
-                            tours.Add(tour);
+                            // Tránh duplicate do khóa unique Url
+                            if (!_context.Tours.Any(t => t.Url == tour.Url))
+                            {
+                                tours.Add(tour);
+                            }
                         }
                     }
 
-                    // Delay giữa các request để tránh bị block
                     await Task.Delay(2000);
                 }
 
-                _logger.LogInformation($"Crawled {tours.Count} tours from OTrip");
+                // Lọc trùng theo Url trong danh sách mới
+                var distinctTours = tours
+                    .Where(t => !string.IsNullOrEmpty(t.Url))
+                    .GroupBy(t => t.Url)
+                    .Select(g => g.First()) // Giữ lại bản ghi đầu tiên của mỗi URL
+                    .ToList();
+
+                // Loại bỏ các tour đã tồn tại trong DB
+                var existingUrls = _context.Tours
+                    .Select(t => t.Url)
+                    .ToHashSet();
+
+                var newTours = distinctTours
+                    .Where(t => !existingUrls.Contains(t.Url))
+                    .ToList();
+
+                // Lưu vào DB
+                if (newTours.Any())
+                {
+                    await _context.Tours.AddRangeAsync(newTours);
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation($"Saved {newTours.Count} new tours to DB");
+                }
+                else
+                {
+                    _logger.LogInformation("No new tours to save (all already exist in DB or duplicate in source)");
+                }
+
+
                 return tours;
             }
             catch (Exception ex)

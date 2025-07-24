@@ -15,9 +15,10 @@ namespace TravelTourCrawler.Migrations
                 name: "Tours",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeparturePoint = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Destination = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -32,6 +33,13 @@ namespace TravelTourCrawler.Migrations
                 {
                     table.PrimaryKey("PK_Tours", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tours_Url",
+                table: "Tours",
+                column: "Url",
+                unique: true,
+                filter: "[Url] IS NOT NULL");
         }
 
         /// <inheritdoc />

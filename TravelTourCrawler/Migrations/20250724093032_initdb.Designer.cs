@@ -12,7 +12,7 @@ using TravelTourCrawler.Data;
 namespace TravelTourCrawler.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250723071357_initdb")]
+    [Migration("20250724093032_initdb")]
     partial class initdb
     {
         /// <inheritdoc />
@@ -27,8 +27,11 @@ namespace TravelTourCrawler.Migrations
 
             modelBuilder.Entity("TravelTourCrawler.Models.Tour", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CrawledTime")
                         .HasColumnType("datetime2");
@@ -61,9 +64,13 @@ namespace TravelTourCrawler.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Url")
+                        .IsUnique()
+                        .HasFilter("[Url] IS NOT NULL");
 
                     b.ToTable("Tours");
                 });

@@ -4,7 +4,8 @@ namespace TravelTourCrawler.Models
 {
     public class Tour
     {
-        public string? Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         public string? Title { get; set; }
         public string? Url { get; set; }
         public string? ImageUrl { get; set; }

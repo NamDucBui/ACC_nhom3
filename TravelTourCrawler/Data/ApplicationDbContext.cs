@@ -11,7 +11,12 @@ namespace TravelTourCrawler.Data
 
         public DbSet<Tour> Tours { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Tour>()
+                .HasIndex(t => t.Url)
+                .IsUnique();
+        }
 
-        
     }
 }
