@@ -3,8 +3,9 @@
     "",
     "\\Travel",
     "\\Travel\\Travel",
+    "\\Travel\\Travel\\Controllers",
     "\\Travel\\Travel\\Models"
   ],
-  "SelectedNode": "\\Travel\\Travel\\Models\\TourProduct.cs",
+  "SelectedNode": "\\Travel\\Travel\\Controllers\\CrawlController.cs",
   "PreviewInSolutionExplorer": false
 }

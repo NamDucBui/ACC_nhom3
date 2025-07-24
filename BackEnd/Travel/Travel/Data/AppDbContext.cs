@@ -7,5 +7,6 @@ namespace Travel.Models
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<TourProduct> TourProducts { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
     }
 } 

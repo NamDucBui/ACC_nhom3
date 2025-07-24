@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 const API_URL = "http://localhost:5259/api/tourproducts";
+const API_TOUR_URL = "http://localhost:5259/api/tourproducts";
+const API_HOTEL_URL = "http://localhost:5259/api/hotels";
 
 const TOUR_SITES = [
   { value: "traveloka", label: "Traveloka" },
@@ -24,15 +26,18 @@ function App() {
     imageUrl: "",
     detailUrl: "",
   });
+  const [dataType, setDataType] = useState("tour"); // "tour" hoặc "hotel"
 
   useEffect(() => {
-    fetchTours();
-  }, []);
+    fetchData();
+    // eslint-disable-next-line
+  }, [dataType]);
 
-  const fetchTours = async () => {
+  const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await fetch(API_URL);
+      const url = dataType === "tour" ? API_TOUR_URL : API_HOTEL_URL;
+      const res = await fetch(url);
       const data = await res.json();
       setTours(data);
     } catch {
@@ -44,7 +49,7 @@ function App() {
   const handleDelete = async (id) => {
     if (!window.confirm("Bạn chắc chắn muốn xóa?")) return;
     await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-    fetchTours();
+    fetchData();
   };
 
   const handleEdit = (tour) => {
@@ -87,7 +92,7 @@ function App() {
 
     setEditTour(null);
     setForm({ title: "", price: "", startDate: "", location: "", duration: "", imageUrl: "", detailUrl: "" });
-    fetchTours();
+    fetchData();
   };
 
   const handleCancelEdit = () => {
@@ -116,7 +121,7 @@ function App() {
 
       if (res.ok) {
         alert("✅ Đã crawl xong dữ liệu!");
-        fetchTours();
+        fetchData();
       } else {
         alert("❌ Lỗi khi crawl dữ liệu.");
       }
@@ -131,6 +136,15 @@ function App() {
   return (
     <div style={{ maxWidth: 1000, margin: "auto", padding: 24 }}>
       <h1>Crawl Tour Du Lịch</h1>
+
+      <div style={{ marginBottom: 16 }}>
+        <button onClick={() => setDataType("tour")} disabled={dataType === "tour"}>
+          Xem Tour
+        </button>
+        <button onClick={() => setDataType("hotel")} disabled={dataType === "hotel"} style={{ marginLeft: 8 }}>
+          Xem Hotel
+        </button>
+      </div>
 
       <div style={{ marginBottom: 16 }}>
         <label>Chọn trang web: </label>
@@ -167,68 +181,101 @@ function App() {
         {loading ? "Đang crawl..." : "Bắt đầu crawl"}
       </button>
 
-      <h2 style={{ marginTop: 32 }}>Danh sách tour đã crawl</h2>
+      <h2 style={{ marginTop: 32 }}>{dataType === "tour" ? "Danh sách tour đã crawl" : "Danh sách khách sạn đã crawl"}</h2>
       {loading && <div>Đang tải...</div>}
 
-      <table border="1" cellPadding={8} style={{ width: "100%", marginTop: 16 }}>
-        <thead>
-          <tr>
-            <th>Tên tour</th>
-            <th>Giá</th>
-            <th>Ngày khởi hành</th>
-            <th>Địa điểm</th>
-            <th>Thời lượng</th>
-            <th>Ảnh</th>
-            <th>Chi tiết</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tours.length === 0 ? (
+      {dataType === "tour" ? (
+        <table border="1" cellPadding={8} style={{ width: "100%", marginTop: 16 }}>
+          <thead>
             <tr>
-              <td colSpan={8} style={{ textAlign: "center" }}>Chưa có dữ liệu</td>
+              <th>Tên tour</th>
+              <th>Giá</th>
+              <th>Ngày khởi hành</th>
+              <th>Địa điểm</th>
+              <th>Thời lượng</th>
+              <th>Ảnh</th>
+              <th>Chi tiết</th>
+              <th>Hành động</th>
             </tr>
-          ) : (
-            tours.map((tour) => (
-              editTour === tour.id ? (
-                <tr key={tour.id} style={{ background: "#ffe" }}>
-                  <td colSpan={8}>
-                    <form onSubmit={handleFormSubmit} style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                      <input name="title" value={form.title} onChange={handleFormChange} placeholder="Tên tour" required />
-                      <input name="price" value={form.price} onChange={handleFormChange} placeholder="Giá" type="number" min={0} />
-                      <input name="startDate" value={form.startDate} onChange={handleFormChange} type="date" />
-                      <input name="location" value={form.location} onChange={handleFormChange} placeholder="Địa điểm" />
-                      <input name="duration" value={form.duration} onChange={handleFormChange} placeholder="Thời lượng" />
-                      <input name="imageUrl" value={form.imageUrl} onChange={handleFormChange} placeholder="Ảnh" />
-                      <input name="detailUrl" value={form.detailUrl} onChange={handleFormChange} placeholder="Link chi tiết" />
-                      <button type="submit">Lưu</button>
-                      <button type="button" onClick={handleCancelEdit}>Hủy</button>
-                    </form>
-                  </td>
+          </thead>
+          <tbody>
+            {tours.length === 0 ? (
+              <tr>
+                <td colSpan={8} style={{ textAlign: "center" }}>Chưa có dữ liệu</td>
+              </tr>
+            ) : (
+              tours.map((tour) => (
+                editTour === tour.id ? (
+                  <tr key={tour.id} style={{ background: "#ffe" }}>
+                    <td colSpan={8}>
+                      <form onSubmit={handleFormSubmit} style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                        <input name="title" value={form.title} onChange={handleFormChange} placeholder="Tên tour" required />
+                        <input name="price" value={form.price} onChange={handleFormChange} placeholder="Giá" type="number" min={0} />
+                        <input name="startDate" value={form.startDate} onChange={handleFormChange} type="date" />
+                        <input name="location" value={form.location} onChange={handleFormChange} placeholder="Địa điểm" />
+                        <input name="duration" value={form.duration} onChange={handleFormChange} placeholder="Thời lượng" />
+                        <input name="imageUrl" value={form.imageUrl} onChange={handleFormChange} placeholder="Ảnh" />
+                        <input name="detailUrl" value={form.detailUrl} onChange={handleFormChange} placeholder="Link chi tiết" />
+                        <button type="submit">Lưu</button>
+                        <button type="button" onClick={handleCancelEdit}>Hủy</button>
+                      </form>
+                    </td>
+                  </tr>
+                ) : (
+                  <tr key={tour.id}>
+                    <td>{tour.title}</td>
+                    <td>{tour.price}</td>
+                    <td>{tour.startDate ? tour.startDate.slice(0, 10) : ""}</td>
+                    <td>{tour.location}</td>
+                    <td>{tour.duration}</td>
+                    <td>
+                      {tour.imageUrl && <img src={tour.imageUrl} alt="tour" style={{ width: 60 }} />}
+                    </td>
+                    <td>
+                      {tour.detailUrl && <a href={tour.detailUrl} target="_blank" rel="noreferrer">Xem</a>}
+                    </td>
+                    <td>
+                      <button onClick={() => handleEdit(tour)}>Sửa</button>
+                      <button onClick={() => handleDelete(tour.id)}>Xóa</button>
+                    </td>
+                  </tr>
+                )
+              ))
+            )}
+          </tbody>
+        </table>
+      ) : (
+        <table border="1" cellPadding={8} style={{ width: "100%", marginTop: 16 }}>
+          <thead>
+            <tr>
+              <th>Tên khách sạn</th>
+              <th>Giá</th>
+              <th>Địa điểm</th>
+              <th>Ảnh</th>
+              <th>Chi tiết</th>
+              <th>Ngày cập nhật</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tours.length === 0 ? (
+              <tr>
+                <td colSpan={6} style={{ textAlign: "center" }}>Chưa có dữ liệu</td>
+              </tr>
+            ) : (
+              tours.map((hotel) => (
+                <tr key={hotel.id}>
+                  <td>{hotel.name}</td>
+                  <td>{hotel.price}</td>
+                  <td>{hotel.location}</td>
+                  <td>{hotel.imageUrl && <img src={hotel.imageUrl} alt="hotel" style={{ width: 60 }} />}</td>
+                  <td>{hotel.detailUrl && <a href={hotel.detailUrl} target="_blank" rel="noreferrer">Xem</a>}</td>
+                  <td>{hotel.lastUpdatedAt ? hotel.lastUpdatedAt.slice(0, 19).replace("T", " ") : ""}</td>
                 </tr>
-              ) : (
-                <tr key={tour.id}>
-                  <td>{tour.title}</td>
-                  <td>{tour.price}</td>
-                  <td>{tour.startDate ? tour.startDate.slice(0, 10) : ""}</td>
-                  <td>{tour.location}</td>
-                  <td>{tour.duration}</td>
-                  <td>
-                    {tour.imageUrl && <img src={tour.imageUrl} alt="tour" style={{ width: 60 }} />}
-                  </td>
-                  <td>
-                    {tour.detailUrl && <a href={tour.detailUrl} target="_blank" rel="noreferrer">Xem</a>}
-                  </td>
-                  <td>
-                    <button onClick={() => handleEdit(tour)}>Sửa</button>
-                    <button onClick={() => handleDelete(tour.id)}>Xóa</button>
-                  </td>
-                </tr>
-              )
-            ))
-          )}
-        </tbody>
-      </table>
+              ))
+            )}
+          </tbody>
+        </table>
+      )}
 
       <h3 style={{ marginTop: 32 }}>Thêm tour mới</h3>
       <form onSubmit={handleFormSubmit} style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 32 }}>

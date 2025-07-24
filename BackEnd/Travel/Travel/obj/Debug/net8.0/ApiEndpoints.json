@@ -16,6 +16,42 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Travel.Controllers.CrawlController",
+    "Method": "CrawlTravelokaHotelToHotels",
+    "RelativePath": "api/Crawl/traveloka-hotel-to-hotels",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Travel.Controllers.CrawlController\u002BCrawlRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Travel.Controllers.HotelsController",
+    "Method": "GetAll",
+    "RelativePath": "api/Hotels",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Travel.Models.Hotel, Travel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Travel.Controllers.TourProductsController",
     "Method": "GetAll",
     "RelativePath": "api/TourProducts",
