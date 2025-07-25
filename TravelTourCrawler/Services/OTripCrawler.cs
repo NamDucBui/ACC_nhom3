@@ -10,7 +10,7 @@ namespace TravelTourCrawler.Services
         private readonly HttpClient _httpClient;
         private readonly ILogger<OTripCrawler> _logger;
         private readonly ApplicationDbContext _context;
-
+        public string Source => "OTrip";
         public OTripCrawler(HttpClient httpClient, ILogger<OTripCrawler> logger, ApplicationDbContext applicationDbContext)
         {
             _httpClient = httpClient;
@@ -23,16 +23,15 @@ namespace TravelTourCrawler.Services
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
         }
 
-        public async Task<List<Tour>> CrawlToursAsync()
+        public async Task<List<Tour>> CrawlToursAsync(string url)
         {
+            var tours = new List<Tour>();
             try
             {
-                _logger.LogInformation("Starting to crawl tours from OTrip");
-                var tours = new List<Tour>();
 
-                for (int page = 1; page <= 5; page++)
-                {
-                    var response = await _httpClient.GetAsync($"/tours/tour-chau-a/trung-quoc?page={page}");
+                _logger.LogInformation($"Starting crawling with {url}");
+
+                    var response = await _httpClient.GetAsync(url);
                     response.EnsureSuccessStatusCode();
                     var content = await response.Content.ReadAsStringAsync();
 
@@ -90,20 +89,20 @@ namespace TravelTourCrawler.Services
                                 tour.Price = priceNode.InnerText.Trim();
                             }
 
-                            // Tránh duplicate do khóa unique Url
-                            //if (!_context.Tours.Any(t => t.Url == tour.Url))
-                            //{
-                            //    tours.Add(tour);
-                            //}
-                            tours.Add(tour);
-                            _logger.LogInformation($"Crawl {tours} ");
+                        // Tránh duplicate do khóa unique Url
+                        //if (!_context.Tours.Any(t => t.Url == tour.Url))
+                        //{
+                        //    tours.Add(tour);
+                        //}
+                        _logger.LogInformation($"Crawl {tours.Count+1} ");
+
+                        tours.Add(tour);
 
                         }
                     }
 
                     await Task.Delay(2000);
-                }
-
+                
                 // Lọc trùng theo Url trong danh sách mới
                 //var distinctTours = tours
                 //    .Where(t => !string.IsNullOrEmpty(t.Url))

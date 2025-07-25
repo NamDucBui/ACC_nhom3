@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TravelTourCrawler")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1652cdfb20bddbc02308efe1f1ba3728180fc302")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3faf7ac1658427b73c6824afed34e9bef5dc0e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("TravelTourCrawler")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TravelTourCrawler")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

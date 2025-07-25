@@ -4,7 +4,8 @@ namespace TravelTourCrawler.Services
 {
     public interface ITourCrawler
     {
-        Task<List<Tour>> CrawlToursAsync();
+        string Source { get; }
+        Task<List<Tour>> CrawlToursAsync(string url);
 
     }
 }

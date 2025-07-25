@@ -2,11 +2,17 @@
   {
     "ContainingType": "TravelTourCrawler.Controllers.ToursController",
     "Method": "GetAllTours",
-    "RelativePath": "api/Tours",
+    "RelativePath": "api/Tours/crawl",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "url",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

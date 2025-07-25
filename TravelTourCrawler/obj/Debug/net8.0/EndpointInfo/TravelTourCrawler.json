@@ -5,10 +5,19 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Tours": {
+    "/api/Tours/crawl": {
       "get": {
         "tags": [
           "Tours"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {

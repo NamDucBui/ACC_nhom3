@@ -19,23 +19,27 @@ namespace TravelTourCrawler.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllTours()
+        [HttpGet("crawl")]
+        public async Task<IActionResult> GetAllTours([FromQuery] string url)
         {
+            if (string.IsNullOrWhiteSpace(url))
+                return BadRequest(new { error = "URL is required" });
+
             try
             {
-                _logger.LogInformation("Fetching all tours");
+                _logger.LogInformation($"User requested crawl from: {url}");
 
-                var crawlTasks = _tourCrawlers.Select(c => c.CrawlToursAsync()).ToList();
-                await Task.WhenAll(crawlTasks);
+                // Gọi crawler phù hợp (ở đây giả định chỉ có OTripCrawler)
+                var otripCrawler = _tourCrawlers.FirstOrDefault(c => c.Source == "OTrip") as OTripCrawler;
+                if (otripCrawler == null)
+                    return NotFound(new { error = "OTrip crawler not found" });
 
-                var allTours = crawlTasks.SelectMany(t => t.Result).ToList();
-
-                return Ok(allTours);
+                var tours = await otripCrawler.CrawlToursAsync(url);
+                return Ok(tours);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching tours");
+                _logger.LogError(ex, "Error crawling from custom URL");
                 return StatusCode(500, new { error = "Internal server error" });
             }
         }
