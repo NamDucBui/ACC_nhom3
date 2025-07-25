@@ -13,9 +13,9 @@ namespace TravelTourCrawler.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Tour>()
-                .HasIndex(t => t.Url)
-                .IsUnique();
+            //modelBuilder.Entity<Tour>()
+            //    .HasIndex(t => t.Url)
+            //    .IsUnique();
         }
 
     }

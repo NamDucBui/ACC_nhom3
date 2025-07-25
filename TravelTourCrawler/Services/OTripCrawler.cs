@@ -30,9 +30,9 @@ namespace TravelTourCrawler.Services
                 _logger.LogInformation("Starting to crawl tours from OTrip");
                 var tours = new List<Tour>();
 
-                for (int page = 1; page <= 2; page++)
+                for (int page = 1; page <= 5; page++)
                 {
-                    var response = await _httpClient.GetAsync($"/tours/tour-noi-dia?page={page}");
+                    var response = await _httpClient.GetAsync($"/tours/tour-chau-a/trung-quoc?page={page}");
                     response.EnsureSuccessStatusCode();
                     var content = await response.Content.ReadAsStringAsync();
 
@@ -50,7 +50,7 @@ namespace TravelTourCrawler.Services
                             var titleNode = tourNode.SelectSingleNode(".//div/a");
                             if (titleNode != null)
                             {
-                                tour.Title = titleNode.InnerText.Trim();
+                                tour.Title = titleNode.GetAttributeValue("title", "");
                                 tour.Url = titleNode.GetAttributeValue("href", "");
                             }
 
@@ -91,10 +91,13 @@ namespace TravelTourCrawler.Services
                             }
 
                             // Tránh duplicate do khóa unique Url
-                            if (!_context.Tours.Any(t => t.Url == tour.Url))
-                            {
-                                tours.Add(tour);
-                            }
+                            //if (!_context.Tours.Any(t => t.Url == tour.Url))
+                            //{
+                            //    tours.Add(tour);
+                            //}
+                            tours.Add(tour);
+                            _logger.LogInformation($"Crawl {tours} ");
+
                         }
                     }
 
@@ -102,32 +105,32 @@ namespace TravelTourCrawler.Services
                 }
 
                 // Lọc trùng theo Url trong danh sách mới
-                var distinctTours = tours
-                    .Where(t => !string.IsNullOrEmpty(t.Url))
-                    .GroupBy(t => t.Url)
-                    .Select(g => g.First()) // Giữ lại bản ghi đầu tiên của mỗi URL
-                    .ToList();
+                //var distinctTours = tours
+                //    .Where(t => !string.IsNullOrEmpty(t.Url))
+                //    .GroupBy(t => t.Url)
+                //    .Select(g => g.First()) // Giữ lại bản ghi đầu tiên của mỗi URL
+                //    .ToList();
 
-                // Loại bỏ các tour đã tồn tại trong DB
-                var existingUrls = _context.Tours
-                    .Select(t => t.Url)
-                    .ToHashSet();
+                //// Loại bỏ các tour đã tồn tại trong DB
+                //var existingUrls = _context.Tours
+                //    .Select(t => t.Url)
+                //    .ToHashSet();
 
-                var newTours = distinctTours
-                    .Where(t => !existingUrls.Contains(t.Url))
-                    .ToList();
+                //var newTours = distinctTours
+                //    .Where(t => !existingUrls.Contains(t.Url))
+                //    .ToList();
 
-                // Lưu vào DB
-                if (newTours.Any())
-                {
-                    await _context.Tours.AddRangeAsync(newTours);
-                    await _context.SaveChangesAsync();
-                    _logger.LogInformation($"Saved {newTours.Count} new tours to DB");
-                }
-                else
-                {
-                    _logger.LogInformation("No new tours to save (all already exist in DB or duplicate in source)");
-                }
+                ////// Lưu vào DB
+                //if (newTours.Any())
+                //{
+                //    await _context.Tours.AddRangeAsync(newTours);
+                //    await _context.SaveChangesAsync();
+                //    _logger.LogInformation($"Saved {newTours.Count} new tours to DB");
+                //}
+                //else
+                //{
+                //    _logger.LogInformation("No new tours to save (all already exist in DB or duplicate in source)");
+                //}
 
 
                 return tours;
