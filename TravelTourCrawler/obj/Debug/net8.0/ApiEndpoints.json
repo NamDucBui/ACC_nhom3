@@ -17,6 +17,22 @@
   },
   {
     "ContainingType": "TravelTourCrawler.Controllers.ToursController",
+    "Method": "CrawlDynamic",
+    "RelativePath": "api/Tours/crawl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "TravelTourCrawler.DTO.CrawlRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelTourCrawler.Controllers.ToursController",
     "Method": "GetAvailableSources",
     "RelativePath": "api/Tours/sources",
     "HttpMethod": "GET",

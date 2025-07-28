@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TravelTourCrawler.DTO;
 using TravelTourCrawler.Models;
 using TravelTourCrawler.Services;
 
@@ -42,6 +43,19 @@ namespace TravelTourCrawler.Controllers
                 _logger.LogError(ex, "Error crawling from custom URL");
                 return StatusCode(500, new { error = "Internal server error" });
             }
+        }
+
+        [HttpPost("crawl")]
+        public async Task<IActionResult> CrawlDynamic([FromBody] CrawlRequestDto request)
+        {
+            var crawler = _tourCrawlers.FirstOrDefault(c => c.Source == "OTrip");
+            if (crawler is OTripCrawler otrip)
+            {
+                var tours = await otrip.CrawlWithCustomClassesAsync(request);
+                return Ok(tours);
+            }
+
+            return NotFound("Crawler not found");
         }
 
         [HttpGet("sources")]

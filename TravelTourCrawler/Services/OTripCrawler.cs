@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
 using TravelTourCrawler.Data;
+using TravelTourCrawler.DTO;
 using TravelTourCrawler.Models;
 
 namespace TravelTourCrawler.Services
@@ -22,6 +23,111 @@ namespace TravelTourCrawler.Services
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
             _httpClient.Timeout = TimeSpan.FromSeconds(30);
         }
+        public async Task<List<Tour>> CrawlWithCustomClassesAsync(CrawlRequestDto dto)
+        {
+            var tours = new List<Tour>();
+
+            var response = await _httpClient.GetAsync(dto.Url);
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(content);
+
+            var tourNodes = htmlDoc.DocumentNode.SelectNodes($"//div[contains(@class, '{dto.ListContainerClass}')]");
+
+            if (tourNodes != null)
+            {
+                foreach (var node in tourNodes)
+                {
+                    var tour = new Tour { Source = "OTrip" };
+
+                    // Title & URL
+                    var titleNode = node.SelectSingleNode($".//{dto.TitleSelector}");
+                    if (titleNode != null)
+                    {
+                        tour.Title = titleNode.GetAttributeValue("title", "");
+                        tour.Url = titleNode.GetAttributeValue("href", "");
+                    }
+
+                    // Image
+                    var imageNode = node.SelectSingleNode($".//{dto.ImageSelector}");
+                    if (imageNode != null)
+                    {
+                        tour.ImageUrl = imageNode.GetAttributeValue("src", "");
+                    }
+
+                    // Detail fields
+                    var detailNodes = node.SelectNodes($".//div[contains(@class, '{dto.DetailContainerClass}')]");
+                    if (detailNodes != null)
+                    {
+                        foreach (var detail in detailNodes)
+                        {
+                            var label = detail.SelectSingleNode($".//span[contains(@class, '{dto.LabelClass}')]")?.InnerText.Trim();
+                            var value = detail.SelectSingleNode($".//span[not(contains(@class, '{dto.LabelClass}'))]")?.InnerText.Trim();
+
+                            if (label != null && value != null)
+                            {
+                                if (label.Contains("Điểm khởi hành"))
+                                    tour.DeparturePoint = value;
+                                else if (label.Contains("Điểm đến"))
+                                    tour.Destination = value;
+                                else if (label.Contains("Lịch trình"))
+                                    tour.Duration = value;
+                                else if (label.Contains("Khởi hành"))
+                                    tour.DepartureTime = value;
+                                else if (label.Contains("Phương tiện"))
+                                    tour.Transportation = value;
+                            }
+                        }
+                    }
+
+                    // Price
+                    var priceNode = node.SelectSingleNode($".//p[contains(@class, '{dto.PriceClass}')]");
+                    if (priceNode != null)
+                    {
+                        tour.Price = priceNode.InnerText.Trim();
+                    }
+                    if (!_context.Tours.Any(t => t.Url == tour.Url))
+                    {
+                        tours.Add(tour);
+                    }
+                }
+            }
+
+            await Task.Delay(2000);
+
+            // Lọc trùng theo Url trong danh sách mới
+            var distinctTours = tours
+                .Where(t => !string.IsNullOrEmpty(t.Url))
+                .GroupBy(t => t.Url)
+                .Select(g => g.First()) // Giữ lại bản ghi đầu tiên của mỗi URL
+                .ToList();
+
+            //// Loại bỏ các tour đã tồn tại trong DB
+            var existingUrls = _context.Tours
+                .Select(t => t.Url)
+                .ToHashSet();
+
+            var newTours = distinctTours
+                .Where(t => !existingUrls.Contains(t.Url))
+                .ToList();
+
+            ////// Lưu vào DB
+            if (newTours.Any())
+            {
+                await _context.Tours.AddRangeAsync(newTours);
+                await _context.SaveChangesAsync();
+                _logger.LogInformation($"Saved {newTours.Count} new tours to DB");
+            }
+            else
+            {
+                _logger.LogInformation("No new tours to save (all already exist in DB or duplicate in source)");
+            }
+
+            return tours;
+        }
+
 
         public async Task<List<Tour>> CrawlToursAsync(string url)
         {
@@ -90,13 +196,13 @@ namespace TravelTourCrawler.Services
                             }
 
                         // Tránh duplicate do khóa unique Url
-                        //if (!_context.Tours.Any(t => t.Url == tour.Url))
-                        //{
-                        //    tours.Add(tour);
-                        //}
-                        _logger.LogInformation($"Crawl {tours.Count+1} ");
+                        if (!_context.Tours.Any(t => t.Url == tour.Url))
+                        {
+                            tours.Add(tour);
+                        }
+                        //_logger.LogInformation($"Crawl {tours.Count+1} ");
 
-                        tours.Add(tour);
+                        //tours.Add(tour);
 
                         }
                     }
@@ -104,32 +210,32 @@ namespace TravelTourCrawler.Services
                     await Task.Delay(2000);
                 
                 // Lọc trùng theo Url trong danh sách mới
-                //var distinctTours = tours
-                //    .Where(t => !string.IsNullOrEmpty(t.Url))
-                //    .GroupBy(t => t.Url)
-                //    .Select(g => g.First()) // Giữ lại bản ghi đầu tiên của mỗi URL
-                //    .ToList();
+                var distinctTours = tours
+                    .Where(t => !string.IsNullOrEmpty(t.Url))
+                    .GroupBy(t => t.Url)
+                    .Select(g => g.First()) // Giữ lại bản ghi đầu tiên của mỗi URL
+                    .ToList();
 
                 //// Loại bỏ các tour đã tồn tại trong DB
-                //var existingUrls = _context.Tours
-                //    .Select(t => t.Url)
-                //    .ToHashSet();
+                var existingUrls = _context.Tours
+                    .Select(t => t.Url)
+                    .ToHashSet();
 
-                //var newTours = distinctTours
-                //    .Where(t => !existingUrls.Contains(t.Url))
-                //    .ToList();
+                var newTours = distinctTours
+                    .Where(t => !existingUrls.Contains(t.Url))
+                    .ToList();
 
                 ////// Lưu vào DB
-                //if (newTours.Any())
-                //{
-                //    await _context.Tours.AddRangeAsync(newTours);
-                //    await _context.SaveChangesAsync();
-                //    _logger.LogInformation($"Saved {newTours.Count} new tours to DB");
-                //}
-                //else
-                //{
-                //    _logger.LogInformation("No new tours to save (all already exist in DB or duplicate in source)");
-                //}
+                if (newTours.Any())
+                {
+                    await _context.Tours.AddRangeAsync(newTours);
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation($"Saved {newTours.Count} new tours to DB");
+                }
+                else
+                {
+                    _logger.LogInformation("No new tours to save (all already exist in DB or duplicate in source)");
+                }
 
 
                 return tours;

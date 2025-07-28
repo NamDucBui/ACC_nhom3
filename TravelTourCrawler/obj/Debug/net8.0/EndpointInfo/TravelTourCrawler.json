@@ -24,6 +24,35 @@
             "description": "OK"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Tours"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrawlRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrawlRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrawlRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Tours/sources": {
@@ -80,6 +109,40 @@
   },
   "components": {
     "schemas": {
+      "CrawlRequestDto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "listContainerClass": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleSelector": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageSelector": {
+            "type": "string",
+            "nullable": true
+          },
+          "detailContainerClass": {
+            "type": "string",
+            "nullable": true
+          },
+          "labelClass": {
+            "type": "string",
+            "nullable": true
+          },
+          "priceClass": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "WeatherForecast": {
         "type": "object",
         "properties": {
