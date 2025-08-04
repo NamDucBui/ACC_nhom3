@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Travel.Data;
+using Travel.Services;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure; // Thêm nếu cần
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"),
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
     ));
+
+// Đăng ký HttpClient cho Telegram service
+builder.Services.AddHttpClient();
+
+// Đăng ký TelegramNotificationService
+builder.Services.AddScoped<TelegramNotificationService>();
+
+// Đăng ký CrawlerService
+builder.Services.AddScoped<CrawlerService>();
 // Thêm cấu hình CORS
 builder.Services.AddCors(options =>
 {

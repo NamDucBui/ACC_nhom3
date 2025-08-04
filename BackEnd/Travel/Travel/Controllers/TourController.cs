@@ -19,7 +19,52 @@ namespace Travel.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tour>>> GetTours()
         {
-            return await _context.Tours.ToListAsync();
+            return await _context.Tours.Include(t => t.CrawlConfig).ToListAsync();
+        }
+
+        // GET: api/Tour/by-config/{configId}
+        [HttpGet("by-config/{configId}")]
+        public async Task<ActionResult<IEnumerable<Tour>>> GetToursByConfig(int configId)
+        {
+            var tours = await _context.Tours
+                .Where(t => t.CrawlConfigId == configId)
+                .Include(t => t.CrawlConfig)
+                .ToListAsync();
+            
+            return tours;
+        }
+
+        // GET: api/Tour/without-config
+        [HttpGet("without-config")]
+        public async Task<ActionResult<IEnumerable<Tour>>> GetToursWithoutConfig()
+        {
+            var tours = await _context.Tours
+                .Where(t => t.CrawlConfigId == null)
+                .ToListAsync();
+            
+            return tours;
+        }
+
+        // GET: api/Tour/configs
+        [HttpGet("configs")]
+        public async Task<ActionResult<object>> GetToursByConfigs()
+        {
+            var result = await _context.CrawlConfigs
+                .Where(c => c.IsActive)
+                .Select(c => new
+                {
+                    ConfigId = c.Id,
+                    ConfigName = c.SourceName,
+                    TourCount = _context.Tours.Count(t => t.CrawlConfigId == c.Id),
+                    LastCrawled = _context.Tours
+                        .Where(t => t.CrawlConfigId == c.Id)
+                        .OrderByDescending(t => t.Id)
+                        .Select(t => t.Id)
+                        .FirstOrDefault()
+                })
+                .ToListAsync();
+
+            return result;
         }
 
         // GET: api/Tour/5

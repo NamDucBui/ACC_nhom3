@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travel.Data;
 
@@ -11,9 +12,11 @@ using Travel.Data;
 namespace Travel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250731022432_RemoveUnusedFields")]
+    partial class RemoveUnusedFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,11 +65,27 @@ namespace Travel.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("SourceDetailQueryParams")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("SourceDurationQueryParams")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("SourceEachItemContainer")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SourceEarlyPromotionQueryParams")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SourceGiftPromotionQueryParams")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SourceHighlightReviewQueryParams")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -94,7 +113,15 @@ namespace Travel.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("SourceReviewerNameQueryParams")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("SourceSapoQueryParams")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SourceTagQueryParams")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -110,55 +137,6 @@ namespace Travel.Migrations
                     b.ToTable("CrawlConfigs");
                 });
 
-            modelBuilder.Entity("Travel.Models.CrawlHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CompletedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CrawlConfigId")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan?>("Duration")
-                        .HasColumnType("time(6)");
-
-                    b.Property<string>("ErrorMessage")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("PagesCrawled")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SourceUrl")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("StartedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("ToursFound")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ToursSaved")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ToursSkipped")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CrawlConfigId");
-
-                    b.ToTable("CrawlHistories");
-                });
-
             modelBuilder.Entity("Travel.Models.Tour", b =>
                 {
                     b.Property<int>("Id")
@@ -167,10 +145,19 @@ namespace Travel.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CrawlConfigId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("EarlyPromotion")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("GiftPromotion")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("HighlightReview")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -196,6 +183,10 @@ namespace Travel.Migrations
                     b.Property<double?>("RatingScore")
                         .HasColumnType("double");
 
+                    b.Property<string>("ReviewerName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Route")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -204,31 +195,13 @@ namespace Travel.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CrawlConfigId");
-
                     b.ToTable("Tours");
-                });
-
-            modelBuilder.Entity("Travel.Models.CrawlHistory", b =>
-                {
-                    b.HasOne("Travel.Models.CrawlConfig", "CrawlConfig")
-                        .WithMany()
-                        .HasForeignKey("CrawlConfigId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CrawlConfig");
-                });
-
-            modelBuilder.Entity("Travel.Models.Tour", b =>
-                {
-                    b.HasOne("Travel.Models.CrawlConfig", "CrawlConfig")
-                        .WithMany()
-                        .HasForeignKey("CrawlConfigId");
-
-                    b.Navigation("CrawlConfig");
                 });
 #pragma warning restore 612, 618
         }
