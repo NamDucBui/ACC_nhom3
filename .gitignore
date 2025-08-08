@@ -1,0 +1,15 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+
+# Node modules
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
