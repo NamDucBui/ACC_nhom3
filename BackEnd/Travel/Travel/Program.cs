@@ -1,52 +1,80 @@
 using Microsoft.EntityFrameworkCore;
 using Travel.Data;
 using Travel.Services;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure; // Thêm nếu cần
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Controllers
 builder.Services.AddControllers();
+
+// DbContext (Pomelo MySQL)
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
-    ));
+    )
+);
 
-// Đăng ký HttpClient cho Telegram service
+// HttpClient + Services
 builder.Services.AddHttpClient();
-
-// Đăng ký TelegramNotificationService
 builder.Services.AddScoped<TelegramNotificationService>();
-
-// Đăng ký CrawlerService
 builder.Services.AddScoped<CrawlerService>();
-// Thêm cấu hình CORS
+
+// CORS: ĐỊNH NGHĨA RÕ ORIGIN CHO DEV
+const string FrontendPolicy = "FrontendDev";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy => policy.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod());
+    options.AddPolicy(name: FrontendPolicy, policy =>
+    {
+        policy
+            // Chỉ rõ các origin dev bạn dùng:
+            .WithOrigins(
+                "http://localhost:3000",
+                "http://127.0.0.1:3000",
+                "http://localhost:5173",
+                "http://127.0.0.1:5173"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        // Nếu DÙNG COOKIE/TOKEN QUA CREDENTIALS thì bật dòng dưới
+        // và KHÔNG được AllowAnyOrigin:
+        // .AllowCredentials();
+    });
+
+    // Tuỳ chọn: policy mở rộng trong nội bộ máy (chỉ dùng khi thật cần)
+    options.AddPolicy("AllowLocalhostAll", policy =>
+    {
+        policy
+            .SetIsOriginAllowed(origin =>
+                origin.StartsWith("http://localhost:") ||
+                origin.StartsWith("http://127.0.0.1:"))
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        // .AllowCredentials(); // bật nếu cần cookie
+    });
 });
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ⚠️ ĐẶT CORS SỚM HƠN HTTPS REDIRECT để tránh mất header khi 307 redirect
+app.UseCors(FrontendPolicy);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// HTTPS redirect (giữ sau UseCors để tránh lỗi CORS trên redirect)
 app.UseHttpsRedirection();
 
-// Thêm middleware CORS trước UseAuthorization
-app.UseCors("AllowAll");
+// Nếu có auth:
+// app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
